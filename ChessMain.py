@@ -1,4 +1,4 @@
-import sys
+import sys,os
 import pygame
 import ChessEngine
 import Menu
@@ -14,6 +14,12 @@ SQ_SIZE = Config.Config.SQ_SIZE  # kich cỡ của một ô vuông trong bàn c�
 MAX_FPS = Config.Config.MAX_FPS  # for animation
 IMAGES = {}
 TIME_WHILE_END = 2  # đợi màn hình hiển thị khi end game (seconds)
+
+# Get the directory of the current script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Define relative path for images
+IMAGES_PATH = os.path.join(BASE_DIR, "assets", "image")
+
 """
 khởi tạo một từ điển hình ảnh toàn cục. sẽ được gọi một lần duy nhât trong main
 """
@@ -22,7 +28,7 @@ def loadImages():
     for pi in pieces:
         # hàm pygame.transform.scale để scale lại tỉ lệ của hình ảnh sao cho khớp với ô vuông trong bàn cờ
         IMAGES[pi] = pygame.transform.scale(
-            pygame.image.load("C:/Users/phung/ChessAI/Chess/assets/images/" + pi + ".png"),
+            pygame.image.load(os.path.join(IMAGES_PATH, pi + ".png")),
             (SQ_SIZE, SQ_SIZE),
         )
     # giờ chúng ta có thể dẫn tới hình ảnh bằng cách gọi : "IMAGES['wp']"
@@ -31,7 +37,7 @@ phần chính của code. đoạn này sẽ kiểm soát đầu vào của ngư�
 """
 def play(AI):
     pygame.init()
-    pygame.display.set_caption("Play with Player")
+    pygame.display.set_caption("Play with AI")
     screen = pygame.display.set_mode((WIDTH + MOVE_LOG_W, HEIGHT))
     clock = pygame.time.Clock()
     screen.fill(pygame.Color("white"))

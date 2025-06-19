@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame, sys,os
 import Button
 import ChessMain
 import Config
@@ -8,12 +8,20 @@ HEIGHT = Config.Config.HEIGHT
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 AI = None
 pygame.display.set_caption("Menu")
+# Get the directory of the current script
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Define relative paths for assets
+BG_PATH = os.path.join(BASE_DIR, "assets", "menu", "Background.png")
+FONT_PATH = os.path.join(BASE_DIR, "assets", "menu", "font.ttf")
+GUIDE_BG_PATH = os.path.join(BASE_DIR, "assets", "menu", "Guide Rect.png")
+
+
 BG = pygame.transform.scale(
-    pygame.image.load("C:/Users/phung/ChessAI/Chess/assets/menu/Background.png"),
+    pygame.image.load(BG_PATH),
     (WIDTH, HEIGHT),
 )
 def get_font(size):  # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("C:/Users/phung/ChessAI/Chess/assets/menu/font.ttf", size)
+    return pygame.font.Font(FONT_PATH, size)
 def play_menu():
     while True:
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
@@ -68,7 +76,7 @@ def guide_menu():
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
         SCREEN.fill("black")
         SCREEN.blit(BG, (0, 0))
-        GUIDE_BG = pygame.image.load("C:/Users/phung/ChessAI/Chess/assets/menu/Guide Rect.png")
+        GUIDE_BG = pygame.image.load(GUIDE_BG_PATH)
         GUIDE_BG_RECT = GUIDE_BG.get_rect(center=(WIDTH / 2, HEIGHT * 0.45))
         SCREEN.blit(GUIDE_BG, GUIDE_BG_RECT)
         GUIDE1_TEXT = get_font(60).render("Z : Undo", True, "WHITE")
