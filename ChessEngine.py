@@ -436,3 +436,4 @@ class Move():
         if self.isCapture:
             moveString += 'x'
         return moveString + endSquare
+    
